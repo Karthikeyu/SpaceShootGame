@@ -17,7 +17,7 @@ public class gameController : MonoBehaviour
     void Start()
     {
 
-        cameras[1].enabled = false;
+        cameras[1].enabled = true;
         animator = uiPanel.GetComponent<Animator>();
         
 

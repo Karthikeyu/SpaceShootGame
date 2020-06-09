@@ -42,7 +42,11 @@ public class spacem : MonoBehaviour
     public AudioClip shootingClip;
     public AudioClip explosionClip;
     public Image crossHairShooting;
+    public GameObject[] thrusters;
 
+    public Text scoreText;
+    private int  score = 0;
+  
 
     private GameObject[] enemies;
 
@@ -69,6 +73,7 @@ public class spacem : MonoBehaviour
             }
         }
         crossHairShooting.enabled = false;
+       
 
        // ringPrefab = Resources.Load("Prefabs/ring") as GameObject;
         // animator = GetComponent<Animator>();
@@ -93,7 +98,8 @@ public class spacem : MonoBehaviour
         
 
         Turn();
-        Thrust();
+        if(speed>0)
+            Thrust();
         
         //if(enemies != null && enemies.Length < 10)
         //{
@@ -120,13 +126,21 @@ public class spacem : MonoBehaviour
         {
             playerHealthBarText.text = "Health: 0";
         }
+        if (score > 0)
+        {
+            scoreText.text = "Score: " + score;
+        }
+        else
+        {
+            scoreText.text = "Score: 0";
+        }
 
 
         if (isTriggered == true)
         {
 
             // Destroy(ring);
-
+            score += 1;
             isTriggered = false;
             instantiateRing();
             
@@ -209,7 +223,18 @@ public class spacem : MonoBehaviour
     private void Thrust()
     {
 
+        for (int i = 0; i < thrusters.Length; i++)
+        {
+            if (thrusters[i].GetComponent<Thrusters>() != null)
+            {
+                thrusters[i].GetComponent<Thrusters>().Activate(true);
 
+
+             
+            }
+
+
+        }
         transform.position += transform.forward * speed * Time.deltaTime ;
 
     }
@@ -287,19 +312,40 @@ public class spacem : MonoBehaviour
         Vector3 ringScale = ring.transform.localScale;
 
         float a = UnityEngine.Random.value;
-        Vector2 point = UnityEngine.Random.insideUnitCircle * 150;
-        
+        Vector2 point;
+
+        Vector2 intialRange = new Vector2(300, 450);
+
         if (a % 2 == 0)
         {
-             ringPosition = new Vector3(transform.position.x + point.x, transform.position.y + point.y, transform.position.z + UnityEngine.Random.Range(300, 450));
+            if (score <= 10)
+            {
+                point =  UnityEngine.Random.insideUnitCircle * 150; 
+                ringPosition = new Vector3(transform.position.x + point.x, transform.position.y + point.y, transform.position.z + UnityEngine.Random.Range(intialRange.x, intialRange.y));
+            }else
+            {
+                point = UnityEngine.Random.insideUnitCircle * 100;
+                ringPosition = new Vector3(transform.position.x + point.x, transform.position.y + point.y, transform.position.z + UnityEngine.Random.Range(intialRange.x, intialRange.y));
+
+            }
+
         }
         else
         {
-             ringPosition = new Vector3(transform.position.x - point.x, transform.position.y - point.y, transform.position.z + UnityEngine.Random.Range(300, 450));
+            if (score <= 10)
+            {
+                point = UnityEngine.Random.insideUnitCircle * 150;
+                ringPosition = new Vector3(transform.position.x - point.x, transform.position.y - point.y, transform.position.z + UnityEngine.Random.Range(intialRange.x, intialRange.y));
+            }
+            else
+            {
+                point = UnityEngine.Random.insideUnitCircle * 100;
+                ringPosition = new Vector3(transform.position.x - point.x, transform.position.y - point.y, transform.position.z + UnityEngine.Random.Range(intialRange.x, intialRange.y));
 
+            }
         }
 
-        ringScale = new Vector3(UnityEngine.Random.Range(0.5f,1f), UnityEngine.Random.Range(0.5f, 1f), UnityEngine.Random.Range(0.5f, 1f));
+        ringScale = new Vector3(UnityEngine.Random.Range(0.3f,1f), UnityEngine.Random.Range(0.3f, 1f), UnityEngine.Random.Range(0.3f, 1f));
 
         ring.transform.localScale = ringScale;
 
