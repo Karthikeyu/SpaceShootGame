@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: c84b02310198347b28b0d8802b183869
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Hyper heliX
+  fontNames:
+  - Hyper heliX
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 32793b6be207b457bb85e8c66c52d191, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
